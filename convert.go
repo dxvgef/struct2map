@@ -8,16 +8,16 @@ import (
 // Convert 转换单个结构体
 func Convert(s interface{}, fields []string, tagName string) (map[string]interface{}, error) {
 	if s == nil {
-		return nil, errors.New("结构体不能为空")
+		return nil, errors.New("struct cannot be empty")
 	}
 
 	fieldsLen := len(fields)
 	if fieldsLen == 0 {
-		return nil, errors.New("fields长度不能为0")
+		return nil, errors.New("fields parameter cannot be empty")
 	}
 
 	if tagName == "" {
-		return nil, errors.New("tagName参数不能为空")
+		return nil, errors.New("tagName parameter cannot be empty")
 	}
 
 	result := make(map[string]interface{}, fieldsLen)
@@ -28,7 +28,7 @@ func Convert(s interface{}, fields []string, tagName string) (map[string]interfa
 	valueOf := reflect.ValueOf(s).Elem()
 	numField := valueOf.NumField()
 	if numField == 0 {
-		return nil, errors.New("结构体没有字段")
+		return nil, errors.New("No fields in the struct")
 	}
 	for i := 0; i < numField; i++ {
 		key := valueOf.Type().Field(i).Tag.Get(tagName)
@@ -48,20 +48,20 @@ func Convert(s interface{}, fields []string, tagName string) (map[string]interfa
 // ConvertSlice 转换结构体Slice
 func ConvertSlice(s interface{}, fields []string, tagName string) ([]map[string]interface{}, error) {
 	if s == nil {
-		return nil, errors.New("结构体不能为空")
+		return nil, errors.New("struct cannot be empty")
 	}
 
 	if reflect.ValueOf(s).Kind().String() != "slice" {
-		return nil, errors.New("传入的不是结构体Slice")
+		return nil, errors.New("Not a slice of struct")
 	}
 
 	fieldsLen := len(fields)
 	if fieldsLen == 0 {
-		return nil, errors.New("fields长度不能为0")
+		return nil, errors.New("fields parameter cannot be empty")
 	}
 
 	if tagName == "" {
-		return nil, errors.New("tagName参数不能为空")
+		return nil, errors.New("tagName parameter cannot be empty")
 	}
 
 	sLen := reflect.ValueOf(s).Len()
