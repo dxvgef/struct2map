@@ -6,7 +6,7 @@ golang 的 struct 转为 map，可以只转结构体的部份字段，常用于 
 
 ```
 Convert(s, fields, tagName)
-s 要转换的结构体
+s 要转换的结构体指针
 fields 要转换的字段名（以标签名为准）
 tagName 标签名
 ```
